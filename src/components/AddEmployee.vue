@@ -7,6 +7,11 @@
 	},<!-- src/components/AddEmployee.vue -->
 <template>
     <div class="bg-[#E0AFFF] m-5 p-7 rounded-4xl ">
+      <form @submit.prevent="submitForm">
+  <button type="submit">إضافة</button>
+</form>
+
+      
 <form @submit.prevent="handleSubmit" class="bg-white p-4 rounded-4xl shadow mb-4 space-y-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <input v-model="employee.name" placeholder="الاسم" class="input border rounded-2xl h-12 m-2.5 " required />
@@ -101,9 +106,9 @@ methods: {
     }
 
     // حفظ البيانات في localStorage
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    employees.push(newEmployee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+    // const employees = JSON.parse(localStorage.getItem('employees')) || [];
+    // employees.push(newEmployee);
+    // localStorage.setItem('employees', JSON.stringify(employees));
 
     // إرسال الحدث للأب
     this.$emit('add-employee', newEmployee);

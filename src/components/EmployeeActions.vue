@@ -1,5 +1,11 @@
 <template>
   <div class="flex gap-2 justify-center">
+     <button
+      @click="softDelete"
+      class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+    >
+      حذف مؤقت
+    </button>
 
 
     <button
@@ -71,3 +77,4 @@ export default {
   }
 }
 </script>
+
