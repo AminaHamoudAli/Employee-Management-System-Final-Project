@@ -1,5 +1,5 @@
 <template>
-     <DarkModeToggle/>
+ <!-- <DarkModeToggle/> -->
   <div class="flex min-h-screen font-cairo" dir="rtl">
     
     <SideBar :isOpen="sidebarOpen" @toggle="sidebarOpen = !sidebarOpen" />
@@ -10,6 +10,7 @@
         <br>
           <h1 class="text-3xl font-bold text-center text-white"> نظام ادارة الموظفين</h1>
           <!-- <DarkModeToggle/> -->
+           <!-- <Login/> -->
           <br>
           <hr class="text-white">
           <h1 class="text-3xl font-bold text-white pr-3.5 "> الاحصائـــــيات </h1>
@@ -89,7 +90,7 @@
               <td class="px-4 py-2">{{ emp.department }}</td>
               <td class="px-4 py-2">{{ emp.salary }} ريال</td>
               <td class="px-4 py-2">
-                <button @click="softDelete(emp.id)" class="bg-yellow-500 text-white px-2 py-1 rounded">حذف ناعم</button>
+                <button @click="softDelete(emp.id)" class="bg-yellow-300 text-gray-500 px-2 py-1 rounded">نقل الى سلة المهملات</button>
               </td>
             </tr>
           </tbody>
@@ -182,13 +183,16 @@ export default {
 
   
 <script>
+// import SideBar from '@/components/Login.vue'
 import SideBar from '@/components/SideBar.vue'
 import DarkModeToggle from '@/components/DarkModeToggle.vue'
 import Employee from '@/views/Employee.vue'
 import AddEmployee from '@/components/AddEmployee.vue'
+import Login from '@/components/Login.vue'
 
 export default {
   components: {
+    Login,
     SideBar,
     DarkModeToggle,
     Employee,

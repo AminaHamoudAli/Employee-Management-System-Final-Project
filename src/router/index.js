@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 // import Home from '../views/Home.vue';
 import Employee from '@/views/Employee.vue';
-import About from '../views/About.vue';
+// import About from '../views/About.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
 import Salary from '@/views/Salary.vue';
 import LeaveManagement from '@/views/LeaveManagement.vue';
 import DashBord from '@/views/DashBord.vue';
 import EmployeeList from '@/views/EmployeeList.vue'
 import AddEmployeePage from '@/views/AddEmployeePage.vue'
+import login from '@/views/login.vue'
 
 
 const routes = [
@@ -25,6 +26,19 @@ const routes = [
     name: 'DashBord',
     component: DashBord,
     meta: { title: 'لوحة التحكم' },
+    
+  },
+
+
+
+
+  
+ 
+ {
+    path: '/login',
+    name: 'login',
+    component: login,
+    meta: { title: 'تسجيل دخول ' },
   },
 {
   path: '/AddEmployeePage',

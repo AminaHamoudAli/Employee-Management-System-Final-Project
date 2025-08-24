@@ -1,5 +1,14 @@
 
 	components: {
+		login,
+	},
+	components: {
+		login,
+	},
+	components: {
+		login,
+	},
+	components: {
 		AddEmployee,
 	},
 	components: {
@@ -32,19 +41,22 @@
       </div>
 <br>
       <nav class="flex flex-col p-4 space-y-2 flex-grow font-bold">
-        <router-link to="/" class="hover:bg-gray-50 hover:text-[#C197DB] cursor-pointer px-4 py-2 rounded font-bold" @click="closeMenu">الصفحة الرئيسية</router-link>
+        <router-link to="/" class="text-black hover:bg-gray-50 hover:text-[#C197DB] cursor-pointer px-4 py-2 rounded font-bold" @click="closeMenu">الصفحة الرئيسية</router-link>
         <br>
-        <router-link to="/AddEmployeePage" class="font-bold hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">إضافة موظف</router-link>
+        <router-link to="/AddEmployeePage" class="text-black font-bold hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">إضافة موظف</router-link>
         <br>
-        <router-link to="/salary" class="hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">ملخص الرواتب</router-link>
+        <router-link to="/salary" class="text-black hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">ملخص الرواتب</router-link>
         <br>
-        <router-link to="/leaves" class="hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">إدارة الإجازات</router-link>
+        <router-link to="/leaves" class="text-black hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">إدارة الإجازات</router-link>
         <br>
-        <router-link to="/EmployeeList" class="hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">قائمة الموظفين</router-link>
+        <router-link to="/EmployeeList" class="text-black hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded" @click="closeMenu">قائمة الموظفين</router-link>
          <br>
         <hr>
     
-        <router-link to="/reviews" class="hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded " @click="closeMenu">الاعدادات
+        <router-link to="/reviews" class="text-black hover:bg-gray-50 hover:text-[#C197DB] px-4 py-2 rounded " @click="closeMenu">الاعدادات
+            
+        </router-link>
+        <router-link to="/login" class="hover:bg-gray-50 text-black hover:text-[#C197DB] px-4 py-2 rounded " @click="closeMenu">تسجيل دخول
             
         </router-link>
       </nav>
@@ -59,14 +71,28 @@
           </svg>
           تسجيل خروج
         </button>
+
+    <!-- <button 
+    @click="localStorage.removeItem('isAdmin'); router.push('/login')" 
+    class="w-full flex items-center gap-2 px-4 py-2 text-black bg-red-400 hover:bg-red-500 rounded transition"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5"/>
+    </svg>
+    تسجيل خروج
+  </button> -->
+
       </div>
     </aside>
   </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import Employee from '@/views/Employee.vue'
 import AddEmployee from '@/components/AddEmployee.vue'
+import login from '@/views/login.vue'
 
 export default {
   name: "Sidebar",
