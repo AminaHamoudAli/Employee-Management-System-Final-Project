@@ -1,5 +1,11 @@
 
 	components: {
+		SideBar,
+	},
+	components: {
+		SideBar,
+	},
+	components: {
 		login,
 	},
 	components: {
@@ -14,8 +20,23 @@
 	components: {
 		Employee,
 	},<template>
+     <!-- <div class="flex min-h-screen font-cairo" dir="rtl">
+    
+      <div class=" bg-[#E0AFFF] ">
+        <br>
+          <h1 class="text-3xl font-bold text-center text-white"> نظام ادارة الموظفين</h1>
+       
+          <br>
+          <hr class="text-white">
+          <h1 class="text-3xl font-bold text-white pr-3.5 "> الاحصائـــــيات </h1>
+          <br>
+          <b class="pr-3.5">لوحة التحكم  </b>
+          <b class="font-bold text-white pr-3.5">   الرئيسية </b>
+          <br>
+          <br>
+      </div>
+      </div> -->
   <div>
-   
     <button @click="menuOpen = !menuOpen" class="focus:outline-none md:hidden p-4">
       <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -93,6 +114,7 @@ const router = useRouter()
 import Employee from '@/views/Employee.vue'
 import AddEmployee from '@/components/AddEmployee.vue'
 import login from '@/views/login.vue'
+import SideBar from '@/components/SideBar.vue'
 
 export default {
   name: "Sidebar",

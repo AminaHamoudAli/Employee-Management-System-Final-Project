@@ -9,8 +9,7 @@
       <div class=" bg-[#E0AFFF] ">
         <br>
           <h1 class="text-3xl font-bold text-center text-white"> نظام ادارة الموظفين</h1>
-          <!-- <DarkModeToggle/> -->
-           <!-- <Login/> -->
+       
           <br>
           <hr class="text-white">
           <h1 class="text-3xl font-bold text-white pr-3.5 "> الاحصائـــــيات </h1>
@@ -122,7 +121,7 @@
             <span>{{ emp.name }} - {{ emp.department }}</span>
             <div>
               <button @click="restore(emp.id)" class="bg-green-500 text-white px-2 py-1 rounded">استرجاع</button>
-              <button @click="hardDelete(emp.id)" class="bg-red-500 text-white px-2 py-1 rounded">حذف نهائي</button>
+              <!-- <button @click="hardDelete(emp.id)" class="bg-red-500 text-white px-2 py-1 rounded">حذف نهائي</button> -->
             </div>
           </li>
         </ul>
