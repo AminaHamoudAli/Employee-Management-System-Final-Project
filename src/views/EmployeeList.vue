@@ -1,68 +1,48 @@
 <template>
-  
- <div dir="rtl" class="font-tajawal text-lg flex min-h-screen">
+  <div dir="rtl" class="font-tajawal text-lg flex min-h-screen">
     <!-- Sidebar -->
     <Sidebar class="w-64" />
-    <br>
-    <br>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="flex-1 flex flex-col">
-       <div class="flex min-h-screen font-cairo" dir="rtl">
     
-    <SideBar :isOpen="sidebarOpen" @toggle="sidebarOpen = !sidebarOpen" />
-    <div
-      class="flex-1 p-6 space-y-8 bg-gray-100 transition-all duration-300"
-      :class="sidebarOpen ? 'mr-64' : 'mr-0'" >
-      <div class=" bg-[#E0AFFF] ">
-        <br>
-          <h1 class="text-3xl font-bold text-center text-white"> نظام ادارة الموظفين</h1>
-       
-          <br>
-          <hr class="text-white">
-          <h1 class="text-3xl font-bold text-white pr-3.5 "> الاحصائـــــيات </h1>
-          <br>
-          <b class="pr-3.5">لوحة التحكم  </b>
-          <b class="font-bold text-white pr-3.5">   الرئيسية </b>
-          <br>
-          <br>
+    <!-- المحتوى الرئيسي -->
+    <div class="flex-1 flex flex-col p-6 bg-gray-100 transition-all duration-300">
+      <div class="bg-[#E0AFFF] p-4">
+        <h1 class="text-3xl font-bold text-center text-white">نظام إدارة الموظفين</h1>
+        <hr class="text-white my-2">
+        <h1 class="text-3xl font-bold text-white">الإحصائيات</h1>
+        <b>لوحة التحكم</b>
+        <b class="font-bold text-white">الرئيسية</b>
       </div>
-  
-      <br>
-      <!-- <Navbar /> -->
+
       <DarkModeToggle />
 
+      <!-- المحتوى -->
+      <div class="flex-1 p-6">
+        <h1 class="text-2xl font-bold text-center mb-4">قائمة الموظفين</h1>
+         <br>
+        
+        <div class="mb-4 text-center">
+          <RouterLink to="/AddEmployeePage" class="bg-[#e0afff] text-white px-4 py-2 rounded hover:bg-[#c0afff]">
+            ➕ إضافة موظف جديد
+          </RouterLink>
+        </div>
+        <br>
 
-  <!-- المحتوى -->
-  <div class="flex-1 p-6">
-    <h1 class="text-2xl font-bold text-center mb-4">قائمة الموظفين</h1>
-    <br>
+        <EmployeeFilters v-model="filters" :departments="uniqueDepartments" />
 
-    <div class="mb-4 text-center">
-      <RouterLink to="/AddEmployeePage" class="bg-[#e0afff] text-white px-4 py-2 rounded hover:bg-[#c0afff]">
-        ➕ إضافة موظف جديد
-      </RouterLink>
-    </div>
-    <br>
+        <EmployeeTable
+          :employees="filteredEmployees"
+          @soft-delete="softDelete"
+          @hard-delete="hardDelete"
+        />
 
-    <EmployeeFilters v-model="filters" :departments="uniqueDepartments" />
-
-    <EmployeeTable
-      :employees="filteredEmployees"
-      @soft-delete="softDelete"
-      @hard-delete="hardDelete"
-    />
-
-    <div class="flex justify-center mb-6">
-      <ConfirmButton />
-    </div>
-  </div>
-</div>
-
-</div>
-    </div>
+        <div class="flex justify-center mb-6">
+          <ConfirmButton />
+        </div>
       </div>
-<Footer />
+    </div>
+    
+  </div>
+  <Footer />
 </template>
 
 <script>
@@ -75,9 +55,7 @@ import Sidebar from '@/components/SideBar.vue'
 import AddEmployee from '@/components/AddEmployee.vue'
 
 export default {
-  components: { Navbar, EmployeeFilters, EmployeeTable, Footer ,	ConfirmButton ,Sidebar,
-		AddEmployee,
-	},
+  components: { Navbar, EmployeeFilters, EmployeeTable, Footer, ConfirmButton, Sidebar, AddEmployee },
   data() {
     return {
       filters: { search: '', department: '', evaluation: '' },
