@@ -5,7 +5,6 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// ===================== Employee API =====================
 
 
 
@@ -20,7 +19,6 @@ export const fetchEmployee  = (id) => api.get(`/employees/${id}`).then(res => re
 export const updateEmployee = (id, data) => api.put(`/employees/${id}`, data).then(res => res.data);
 export const deleteEmployee = (id) => api.delete(`/employees/${id}`).then(res => res.data);
 
-// ===================== Salary API =====================
 export const fetchSalaries = () => api.get("/salaries").then(res => res.data);
 export const fetchSalary   = (id) => api.get(`/salaries/${id}`).then(res => res.data);
 export const createSalary  = (data) => api.post("/salaries", data).then(res => res.data);
@@ -28,7 +26,7 @@ export const updateSalary  = (id, data) => api.put(`/salaries/${id}`, data).then
 export const deleteSalary  = (id) => api.delete(`/salaries/${id}`).then(res => res.data);
 export const calculateSalary = (data) => api.post("/salaries/calculate", data).then(res => res.data);
 
-// ===================== Leave API =====================
+
 export const fetchLeaves = () => api.get("/leaves").then(res => res.data);
 export const fetchLeave  = (id) => api.get(`/leaves/${id}`).then(res => res.data);
 export const createLeave = (data) => api.post("/leaves", data).then(res => res.data);

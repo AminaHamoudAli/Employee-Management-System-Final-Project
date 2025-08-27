@@ -1,26 +1,3 @@
-<!-- <template>
-  <div dir="rtl" class="font-tajawal text-lg">
-    <Navbar />
-    <div class="flex">
-   
-      <div class="flex-1 p-6">
-        <h1 class="text-2xl font-bold text-center mb-4">إضافة موظف جديد</h1>
-        <br>
-
-        <AddEmployee :departments="departments" @add-employee="addEmployee" />
-
-        <div class="text-center mt-6">
-         
-        </div>
-      </div>
-    </div>
-    <div class="  flex items-center justify-center">
-        <ConfirmButton/>
-    </div>
-    <br>
-    <Footer />
-  </div>
-</template> -->
 
 <!-- <script>
 import Navbar from '@/components/Navbar.vue'
@@ -28,31 +5,94 @@ import AddEmployee from '@/components/AddEmployee.vue'
 import Footer from '@/components/Footer.vue'
 import Sidebar from '@/components/SideBar.vue'
 import ConfirmButton from '@/components/ConfirmButton.vue'
+import DarkModeToggle from '@/components/DarkModeToggle.vue'
 
 export default {
-  components: { Navbar, AddEmployee, Footer , Sidebar,	ConfirmButton,
-	},
+  components: { DarkModeToggle, Navbar, AddEmployee, Footer, Sidebar, ConfirmButton },
   data() {
     return {
-      departments: ['الموارد البشرية', 'المالية', 'التسويق'] 
+      departments: ['الموارد البشرية', 'المالية', 'التسويق'],
+      sidebarOpen: false
     }
   },
   methods: {
-    addEmployee(newEmp) {
-      const stored = localStorage.getItem('employees')
-      const employees = stored ? JSON.parse(stored) : []
+    async addEmployee(newEmp) {
+      try {
+        const res = await fetch("http://localhost/copstone4-mvc3/public/api/v1/employees", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newEmp)
+        });
 
-      newEmp.id = Date.now()
-      newEmp.deleted = false
-      employees.push(newEmp)
+        const data = await res.json();
+        console.log(data); 
 
-      localStorage.setItem('employees', JSON.stringify(employees))
+        if (data.error) {
+          alert("خطأ: " + data.error);
+          return;
+        }
 
-      this.$router.push('/')
+        // إعادة توجيه المستخدم بعد الإضافة
+        alert(data.message || "تمت إضافة الموظف ");
+        this.$router.push('/');
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء الاتصال بالسيرفر. تأكد أن الباك API يعمل ويعيد JSON صالح.");
+      }
     }
   }
 }
+</script>
+
+
+<script>
+import api from '@/services/api.js'; 
+
+import AddEmployee from '@/components/AddEmployee.vue';
+import Footer from '@/components/Footer.vue';
+import Sidebar from '@/components/SideBar.vue';
+import ConfirmButton from '@/components/ConfirmButton.vue';
+import DarkModeToggle from '@/components/DarkModeToggle.vue';
+
+export default {
+  components: { 
+    DarkModeToggle, 
+    AddEmployee, 
+    Footer, 
+    Sidebar, 
+    ConfirmButton 
+  },
+  data() {
+    return {
+      departments: ['الموارد البشرية', 'المالية', 'التسويق'],
+      sidebarOpen: false
+    }
+  },
+  methods: {
+    handleEmployeeAddition(employeeData) {
+      api.createEmployee(employeeData)         .then(response => {
+          if (response.success) {
+            alert(response.data.message || "تمت إضافة الموظف بنجاح!");
+            this.$router.push('/');
+          } else {
+            alert("خطأ: " + (response.error || 'فشلت عملية الإضافة.'));
+          }
+        })
+        .catch(err => {
+          console.error("Error creating employee:", err);
+          let errorMessage = "حدث خطأ أثناء الاتصال بالخادم.";
+          if (err.response?.data?.error) {
+            errorMessage += \nالرسالة: ${err.response.data.error};
+          } else if (err.request) {
+            errorMessage += "\nلم يتم تلقي استجابة من الخادم. تأكد أن الباك إند يعمل.";
+          }
+          alert(errorMessage);
+        });
+    }
+  }
+}
 </script> -->
+
 <template>
   <div>
     <div dir="rtl" class="font-tajawal text-lg flex flex-col md:flex-row min-h-screen">
@@ -102,15 +142,22 @@ export default {
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import AddEmployee from '@/components/AddEmployee.vue'
-import Footer from '@/components/Footer.vue'
-import Sidebar from '@/components/SideBar.vue'
-import ConfirmButton from '@/components/ConfirmButton.vue'
-import DarkModeToggle from '@/components/DarkModeToggle.vue'
+import api from '@/services/api.js'; 
+
+import AddEmployee from '@/components/AddEmployee.vue';
+import Footer from '@/components/Footer.vue';
+import Sidebar from '@/components/SideBar.vue';
+import ConfirmButton from '@/components/ConfirmButton.vue';
+import DarkModeToggle from '@/components/DarkModeToggle.vue';
 
 export default {
-  components: { DarkModeToggle, Navbar, AddEmployee, Footer, Sidebar, ConfirmButton },
+  components: { 
+    DarkModeToggle, 
+    AddEmployee, 
+    Footer, 
+    Sidebar, 
+    ConfirmButton 
+  },
   data() {
     return {
       departments: ['الموارد البشرية', 'المالية', 'التسويق'],
@@ -118,32 +165,27 @@ export default {
     }
   },
   methods: {
-    async addEmployee(newEmp) {
-      try {
-        const res = await fetch("http://localhost/copstone4-mvc3/public/api/v1/employees", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newEmp)
+    handleEmployeeAddition(employeeData) {
+      api.createEmployee(employeeData)         .then(response => {
+          if (response.success) {
+            alert(response.data.message || "تمت إضافة الموظف بنجاح!");
+            this.$router.push('/');
+          } else {
+            alert("خطأ: " + (response.error || 'فشلت عملية الإضافة.'));
+          }
+        })
+        .catch(err => {
+          console.error("Error creating employee:", err);
+          let errorMessage = "حدث خطأ أثناء الاتصال بالخادم.";
+          if (err.response?.data?.error) {
+            errorMessage;
+            // errorMessage += \nالرسالة: ${err.response.data.error};
+          } else if (err.request) {
+            errorMessage += "\nلم يتم تلقي استجابة من الخادم. تأكد أن الباك إند يعمل.";
+          }
+          alert(errorMessage);
         });
-
-        const data = await res.json();
-        console.log(data); 
-
-        if (data.error) {
-          alert("خطأ: " + data.error);
-          return;
-        }
-
-        // إعادة توجيه المستخدم بعد الإضافة
-        alert(data.message || "تمت إضافة الموظف ");
-        this.$router.push('/');
-      } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء الاتصال بالسيرفر. تأكد أن الباك API يعمل ويعيد JSON صالح.");
-      }
     }
-  }
+}
 }
 </script>
-
-
